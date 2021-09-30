@@ -18,7 +18,62 @@ int max(int a, int b)
 
 // Returns a new Node
 
+node *createNode(int data)
+{
+	node *nn = new node();
+	nn->data = data;
+	nn->height = 0;
+	nn->left = NULL;
+	nn->right = NULL;
+	return nn;
+}
 
+// Returns height of tree
+
+int height(node *root)
+{
+	if (root == NULL)
+		return 0;
+	return 1 + max(height(root->left), height(root->right));
+}
+
+// Returns difference between height of left and right subtree
+
+int getBalance(node *root)
+{
+	return height(root->left) - height(root->right);
+}
+
+// Returns Node after Right Rotation
+
+node *rightRotate(node *root)
+{
+	node *t = root->left;
+	node *u = t->right;
+	t->right = root;
+	root->left = u;
+	return t;
+}
+
+// Returns Node after Left Rotation
+
+node *leftRotate(node *root)
+{
+	node *t = root->right;
+	node *u = t->left;
+	t->left = root;
+	root->right = u;
+	return t;
+}
+
+// Returns node with minimum value in the tree
+
+node *minValue(node *root)
+{
+	if (root->left == NULL)
+		return root;
+	return minValue(root->left);
+}
 
 // Balanced Insertion
 
